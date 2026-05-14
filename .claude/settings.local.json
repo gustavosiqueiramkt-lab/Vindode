@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(supabase db *)",
+      "Bash(npm list *)",
+      "Bash(npx supabase *)",
+      "PowerShell(Get-ChildItem *)",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\gusta\\\\OneDrive\\\\Desktop\\\\NerdsDev\\\\Vindode\" -Recurse | Where-Object { -not $_.PSIsContainer } | Select-Object FullName)",
+      "Bash(Get-ChildItem -Depth 2 -Filter \"*.json\")",
+      "Bash(Select-Object -First 20)",
+      "Bash(gh --version)"
+    ]
+  }
+}
