@@ -66,6 +66,13 @@ export default function DashboardPage({ params }: DashboardPageProps) {
               ))}
             </div>
 
+            <a
+              href={`/dashboard/${params.clientId}/links`}
+              className="px-4 py-2 rounded-lg font-medium bg-blue-600 text-white hover:bg-blue-700 transition-colors text-center"
+            >
+              Gerenciar links
+            </a>
+
             <button
               onClick={handleExportCSV}
               disabled={!data}

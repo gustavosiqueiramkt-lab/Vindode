@@ -12,7 +12,10 @@
       "Bash(git commit -m ' *)",
       "Bash(gh repo *)",
       "Bash(gh auth *)",
-      "Bash(gh api *)"
+      "Bash(gh api *)",
+      "Bash(xargs grep -l \"chunk\")",
+      "Bash(Get-ChildItem -Recurse -Filter \"*.tsx\" -o -Filter \"*.ts\")",
+      "Bash(Select-Object -ExpandProperty FullName)"
     ]
   }
 }

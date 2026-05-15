@@ -59,7 +59,7 @@ export function Sidebar({ clients }: SidebarProps) {
 
       <div className="p-4 border-t border-gray-100 space-y-1">
         <Link
-          href="/dashboard/clients/new"
+          href="/dashboard/new-client"
           className="flex items-center gap-2 w-full px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors"
         >
           <span className="text-lg leading-none">+</span>

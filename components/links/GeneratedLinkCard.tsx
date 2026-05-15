@@ -14,7 +14,7 @@ export function GeneratedLinkCard({
 }: GeneratedLinkCardProps) {
   const [copied, setCopied] = useState(false)
 
-  const fullUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'https://app.com'}/r/${link.slug}`
+  const fullUrl = `${process.env.NEXT_PUBLIC_APP_URL ?? (typeof window !== 'undefined' ? window.location.origin : '')}/r/${link.slug}`
 
   const handleCopy = async () => {
     try {

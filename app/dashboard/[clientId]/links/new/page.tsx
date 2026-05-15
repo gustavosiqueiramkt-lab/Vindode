@@ -62,7 +62,7 @@ export default function CreateLinkPage({ params }: PageProps) {
             <li className="flex gap-3">
               <span className="font-bold text-blue-600">2.</span>
               <span>
-                Copie o link gerado (começando com <code className="text-gray-900">https://app.com/r/</code>)
+                Copie o link gerado (começando com <code className="text-gray-900">/r/</code>)
               </span>
             </li>
             <li className="flex gap-3">

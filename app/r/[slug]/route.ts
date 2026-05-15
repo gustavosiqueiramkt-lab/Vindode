@@ -57,7 +57,7 @@ export async function GET(
 
   // Step 4a: Slug not found in DB
   if (error || !link) {
-    return NextResponse.redirect(new URL('/404', request.url), { status: 302 })
+    return NextResponse.redirect(new URL('/link-inativo', request.url), { status: 302 })
   }
 
   // Step 4b: Link exists but the agency deactivated it
