@@ -8,7 +8,11 @@
       "PowerShell(Get-ChildItem \"C:\\\\Users\\\\gusta\\\\OneDrive\\\\Desktop\\\\NerdsDev\\\\Vindode\" -Recurse | Where-Object { -not $_.PSIsContainer } | Select-Object FullName)",
       "Bash(Get-ChildItem -Depth 2 -Filter \"*.json\")",
       "Bash(Select-Object -First 20)",
-      "Bash(gh --version)"
+      "Bash(gh --version)",
+      "Bash(git commit -m ' *)",
+      "Bash(gh repo *)",
+      "Bash(gh auth *)",
+      "Bash(gh api *)"
     ]
   }
 }
