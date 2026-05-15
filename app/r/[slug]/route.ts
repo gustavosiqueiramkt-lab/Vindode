@@ -90,21 +90,23 @@ export async function GET(
   const waLink = `https://wa.me/${clientData.whatsapp_number}?text=${encodeURIComponent(link.destination_text)}`
 
   // Materialize as a real Promise so it can be safely chained by the CAPI block.
-  // Calling .then() on the Supabase builder triggers execution exactly once.
-  const insertPromise: Promise<void> = supabase
-    .from('click_events')
-    .insert({
-      tracking_link_id: link.id,
-      client_id: link.client_id,
-      session_id: sessionId,
-      ip_address: ip,
-      user_agent: userAgent,
-      referrer,
-      fbclid,
-      gclid,
-      capi_sent: false,
-    })
-    .then(() => undefined)
+  // Promise.resolve() converts the Supabase PromiseLike builder into a full Promise.
+  const insertPromise: Promise<void> = Promise.resolve(
+    supabase
+      .from('click_events')
+      .insert({
+        tracking_link_id: link.id,
+        client_id: link.client_id,
+        session_id: sessionId,
+        ip_address: ip,
+        user_agent: userAgent,
+        referrer,
+        fbclid,
+        gclid,
+        capi_sent: false,
+      })
+      .then(() => undefined),
+  )
 
   // Step 8: Register INSERT with the Vercel edge runtime.
   // waitUntil keeps the worker alive after the response is sent so the write completes.

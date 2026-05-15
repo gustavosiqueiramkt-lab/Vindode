@@ -32,6 +32,7 @@ export type Database = {
           email?: string
           created_at?: string
         }
+        Relationships: []
       }
 
       clients: {
@@ -71,6 +72,7 @@ export type Database = {
           is_active?: boolean
           created_at?: string
         }
+        Relationships: []
       }
 
       tracking_links: {
@@ -110,6 +112,15 @@ export type Database = {
           is_active?: boolean
           created_at?: string
         }
+        Relationships: [
+          {
+            foreignKeyName: 'tracking_links_client_id_fkey'
+            columns: ['client_id']
+            isOneToOne: false
+            referencedRelation: 'clients'
+            referencedColumns: ['id']
+          }
+        ]
       }
 
       click_events: {
@@ -155,6 +166,22 @@ export type Database = {
           capi_sent_at?: string | null
           clicked_at?: string
         }
+        Relationships: [
+          {
+            foreignKeyName: 'click_events_tracking_link_id_fkey'
+            columns: ['tracking_link_id']
+            isOneToOne: false
+            referencedRelation: 'tracking_links'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'click_events_client_id_fkey'
+            columns: ['client_id']
+            isOneToOne: false
+            referencedRelation: 'clients'
+            referencedColumns: ['id']
+          }
+        ]
       }
     }
 
@@ -162,15 +189,17 @@ export type Database = {
       daily_clicks_by_source: {
         Row: {
           client_id: string
-          date: string       // ISO date string, e.g. "2026-05-14"
+          date: string
           utm_source: string
           total_clicks: number
         }
+        Relationships: []
       }
     }
 
     Functions: Record<string, never>
     Enums: Record<string, never>
+    CompositeTypes: Record<string, never>
   }
 }
 
