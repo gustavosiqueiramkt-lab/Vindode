@@ -1,39 +1,17 @@
-import { createServerClient } from '@supabase/ssr'
 import { NextRequest, NextResponse } from 'next/server'
 
-export async function middleware(request: NextRequest) {
-  let response = NextResponse.next({ request: { headers: request.headers } })
-
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return request.cookies.getAll()
-        },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
-          response = NextResponse.next({ request })
-          cookiesToSet.forEach(({ name, value, options }) =>
-            response.cookies.set(name, value, options)
-          )
-        },
-      },
-    }
+export function middleware(request: NextRequest) {
+  // Cookie-based redirect only — real auth verification happens in server components and API routes.
+  // @supabase/ssr cannot be used here because it references Node.js APIs unsupported in the Vercel Edge Runtime.
+  const hasAuthCookie = request.cookies.getAll().some(
+    (cookie) => cookie.name.startsWith('sb-') && cookie.name.endsWith('-auth-token'),
   )
 
-  // Refresh session cookie — required for Server Components to read up-to-date auth state.
-  // getUser() contacts Supabase Auth server; never trust getSession() in middleware.
-  const { data: { user } } = await supabase.auth.getUser()
-
-  if (!user) {
-    const loginUrl = request.nextUrl.clone()
-    loginUrl.pathname = '/login'
-    return NextResponse.redirect(loginUrl)
+  if (!hasAuthCookie) {
+    return NextResponse.redirect(new URL('/login', request.url))
   }
 
-  return response
+  return NextResponse.next()
 }
 
 export const config = {
